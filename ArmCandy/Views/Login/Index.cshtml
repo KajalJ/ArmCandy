@@ -1,0 +1,27 @@
+﻿@model ArmCandy.Models.LoginModel
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Log In</h2>
+
+@using (Html.BeginForm())
+   
+ {
+    <h2> JOIN NOW </h2>
+    <h3> OR </h3>
+    <h2> SIGN UP</h2>
+@Html.LabelFor(m => m.Email)
+@Html.EditorFor(m => m.Email)
+@Html.ValidationMessageFor(m => m.Email)
+
+@Html.LabelFor(m => m.Password)
+@Html.EditorFor(m => m.Password)
+@Html.ValidationMessageFor(m => m.Password)
+
+<input type="submit" />
+    <br />
+    <br />
+<a href="#"> SIGN UP NOW </a>
+   }
+    

@@ -1,0 +1,65 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - ArmCandy</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+    <header>
+        <div class="row">
+            <div class="col-md-2"> <img src="~/Images/logo.jpg" /> </div>
+            <div class="col-md-6" id="AC"> @Html.ActionLink("ARM CANDY", "index","Home") </div>
+            <div class="col-md-2"> @Html.ActionLink("Log In", "Index", "Login")</div>
+            <div class="col-md-1"> <img src="~/Images/shoppingcart.png" class="shoppingcartimg" /> </div>
+            <div class="col-md-1"> <img src="~/Images/heart.png" class="heartimg" /> </div>
+        </div>
+        <div class="row">
+            <div class="nav navbar-nav navcolor">
+
+                <ul class="navbar navbar-inverse">
+                    <li> <a class="nav-item nav-link" href="#">Contact US</a></li>
+                    <li> <a class="nav-item nav-link" href="#">About Us</a></li>
+                    <li>
+                        @Html.ActionLink("Bracelets", "index", "category", new { id = "bracelet" }, new { @class = "nav-item nav-link" })
+                    </li>
+                    <li>
+                        @Html.ActionLink("Clutches", "index", "category", new { id = "clutch" }, new { @class = "nav-item nav-link" })
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </header>
+    <div class="container" id="contactus">
+        @RenderBody()
+    </div>
+    <footer>
+        <div class="wrapper">
+            <section class="foot1">
+                <h1> CONTACT US</h1>
+                <br />
+                <br />
+                <p> Email Us: contact@armcandy.com </p>
+                <p> Call Us: 1.800..123.4567</p>
+            </section>
+
+            <section class="foot2">
+                <h1> BE SOCIAL</h1>
+                <br />
+                <br />
+                <img src="~/Images/FBlogo.png" class="social" />
+                <img src="~/Images/Instagramlogo.png" class="social" />
+            </section>
+
+            <section class="foot3">
+                <h1> @Html.ActionLink("JOIN US","index","Login" ) </h1>
+            </section>
+        </div>
+    </footer>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

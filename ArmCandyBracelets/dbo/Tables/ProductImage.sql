@@ -1,0 +1,10 @@
+﻿
+CREATE TABLE ProductImage
+	(
+	ImageFileName nvarchar(1000) NOT NULL,
+	AltText NTEXT NULL,	
+	ProductID INT NOT NULL,
+	CONSTRAINT PK_ProductImage PRIMARY KEY (ProductID),
+	CONSTRAINT FK_ProductID FOREIGN KEY (ProductID) REFERENCES Product(ID) ON DELETE CASCADE
+	)
+

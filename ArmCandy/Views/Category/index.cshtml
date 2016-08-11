@@ -1,0 +1,24 @@
+﻿@model ArmCandy.Models.CategoryModel
+@{
+    ViewBag.Title = "View";
+}
+
+<h1>@(Model.Products.Any() ? Model.Products.First().ProductType : string.Empty)</h1>
+
+<div class="row" class="braceletpadding">
+    @for (int i = 0; i < Model.Products.Length; i++)
+    {
+
+        <div class="col-sm-4">
+            <img src="~/Images/@Model.Products[i].ImageFileName" class="imgsize" />
+            $@Model.Products[i].ProductPrice
+            @using (Html.BeginForm())
+            {
+                @*<form action="/Product/Index">*@
+                <p>@Html.DisplayFor(m => m.Products[i].ProductDescription)</p>
+                <button type="submit" class="btn btn-primary"> Add to Bag </button>
+                @Html.HiddenFor(m => m.Products[i].ProductId)
+            }
+        </div>
+    }
+</div>

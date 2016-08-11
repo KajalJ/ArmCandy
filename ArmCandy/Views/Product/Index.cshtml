@@ -1,0 +1,26 @@
+﻿@model ArmCandy.Models.ProductModel
+
+@{
+    ViewBag.Title = "Index";
+}
+
+
+<h1>B R A C E L E T S</h1>
+
+<div class="row" class="braceletpadding">
+    <div class="col-sm-4">
+        <img src="~/Images/@Model.ImageFileName" class="imgsize" />
+        $@Model.ProductPrice 
+        @using (Html.BeginForm())
+        { @*<form action="/Product/Index">*@
+        <p>@Html.DisplayFor(m => m.ProductDescription)</p>
+        <button type="submit" class="btn btn-primary"> Add to Bag </button>
+        @Html.HiddenFor(m => m.ProductId)
+        }
+    </div>
+
+    <div class="col-sm-4"> </div>
+    <div class="col-sm-4"> </div>
+</div>
+
+

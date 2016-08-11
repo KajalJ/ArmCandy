@@ -1,0 +1,295 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="ArmCandyModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="CART">
+          <Key>
+            <PropertyRef Name="OrderId" />
+          </Key>
+          <Property Name="OrderId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="20" />
+          <Property Name="EmailAddress" Type="nvarchar" MaxLength="100" />
+          <Property Name="PhoneNumber" Type="int" />
+          <Property Name="ShippingAddress1" Type="nvarchar" MaxLength="100" />
+          <Property Name="ShippingAddress2" Type="nvarchar" MaxLength="100" />
+          <Property Name="ShippingCity" Type="nvarchar" MaxLength="100" />
+          <Property Name="ShippingState" Type="nvarchar" MaxLength="2" />
+          <Property Name="ShippingZipCode" Type="nvarchar" MaxLength="20" />
+          <Property Name="BillingAddress1" Type="nvarchar" MaxLength="100" />
+          <Property Name="BillingAddress2" Type="nvarchar" MaxLength="100" />
+          <Property Name="BillingCity" Type="nvarchar" MaxLength="100" />
+          <Property Name="BillingState" Type="nvarchar" MaxLength="2" />
+          <Property Name="BillingZipCode" Type="nvarchar" MaxLength="20" />
+          <Property Name="BillinggState" Type="nvarchar" MaxLength="2" />
+          <Property Name="CreditCardNumber" Type="nvarchar" MaxLength="16" />
+          <Property Name="CreditCardExpiration" Type="datetime" />
+          <Property Name="CVV" Type="int" Nullable="false" />
+          <Property Name="Items" Type="int" />
+          <Property Name="TOTAL" Type="money" Nullable="false" />
+          <Property Name="ShippingCost" Type="money" />
+          <Property Name="TAX" Type="money" />
+          <Property Name="SubTotal" Type="int" Nullable="false" />
+          <Property Name="GrandTotal" Type="money" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CartProduct">
+          <Key>
+            <PropertyRef Name="OrderId" />
+            <PropertyRef Name="ProductId" />
+          </Key>
+          <Property Name="OrderId" Type="int" Nullable="false" />
+          <Property Name="ProductId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Product">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProductType" Type="varchar" MaxLength="50" />
+          <Property Name="ProductPrice" Type="money" Nullable="false" />
+          <Property Name="ProductDescription" Type="ntext" />
+          <Property Name="ProductName" Type="varchar" MaxLength="50" />
+          <Property Name="Inventory" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ProductImage">
+          <Key>
+            <PropertyRef Name="ProductID" />
+          </Key>
+          <Property Name="ImageFileName" Type="nvarchar" MaxLength="1000" Nullable="false" />
+          <Property Name="AltText" Type="ntext" />
+          <Property Name="ProductID" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_CartProduct_Cart">
+          <End Role="CART" Type="Self.CART" Multiplicity="1" />
+          <End Role="CartProduct" Type="Self.CartProduct" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CART">
+              <PropertyRef Name="OrderId" />
+            </Principal>
+            <Dependent Role="CartProduct">
+              <PropertyRef Name="OrderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CartProduct_Product">
+          <End Role="Product" Type="Self.Product" Multiplicity="1" />
+          <End Role="CartProduct" Type="Self.CartProduct" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="CartProduct">
+              <PropertyRef Name="ProductId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProductID">
+          <End Role="Product" Type="Self.Product" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="ProductImage" Type="Self.ProductImage" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ProductImage">
+              <PropertyRef Name="ProductID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ArmCandyModelStoreContainer">
+          <EntitySet Name="CART" EntityType="Self.CART" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CartProduct" EntityType="Self.CartProduct" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProductImage" EntityType="Self.ProductImage" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_CartProduct_Cart" Association="Self.FK_CartProduct_Cart">
+            <End Role="CART" EntitySet="CART" />
+            <End Role="CartProduct" EntitySet="CartProduct" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CartProduct_Product" Association="Self.FK_CartProduct_Product">
+            <End Role="Product" EntitySet="Product" />
+            <End Role="CartProduct" EntitySet="CartProduct" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductID" Association="Self.FK_ProductID">
+            <End Role="Product" EntitySet="Product" />
+            <End Role="ProductImage" EntitySet="ProductImage" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ArmCandyModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="ArmCandyEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Products" EntityType="ArmCandyModel.Product" />
+          <EntitySet Name="ProductImages" EntityType="ArmCandyModel.ProductImage" />
+          <AssociationSet Name="FK_ProductID" Association="ArmCandyModel.FK_ProductID">
+            <End Role="Product" EntitySet="Products" />
+            <End Role="ProductImage" EntitySet="ProductImages" />
+          </AssociationSet>
+          <EntitySet Name="CARTs" EntityType="ArmCandyModel.CART" />
+          <AssociationSet Name="CartProduct" Association="ArmCandyModel.CartProduct">
+            <End Role="CART" EntitySet="CARTs" />
+            <End Role="Product" EntitySet="Products" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Product">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProductType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ProductPrice" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="ProductDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ProductName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Inventory" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="ProductImage" Relationship="ArmCandyModel.FK_ProductID" FromRole="Product" ToRole="ProductImage" />
+          <NavigationProperty Name="CARTs" Relationship="ArmCandyModel.CartProduct" FromRole="Product" ToRole="CART" />
+        </EntityType>
+        <EntityType Name="ProductImage">
+          <Key>
+            <PropertyRef Name="ProductID" />
+          </Key>
+          <Property Name="ImageFileName" Type="String" Nullable="false" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="AltText" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ProductID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Product" Relationship="ArmCandyModel.FK_ProductID" FromRole="ProductImage" ToRole="Product" />
+        </EntityType>
+        <Association Name="FK_ProductID">
+          <End Type="ArmCandyModel.Product" Role="Product" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="ArmCandyModel.ProductImage" Role="ProductImage" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ProductImage">
+              <PropertyRef Name="ProductID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="CART">
+          <Key>
+            <PropertyRef Name="OrderId" />
+          </Key>
+          <Property Name="OrderId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="EmailAddress" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumber" Type="Int32" />
+          <Property Name="ShippingAddress1" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ShippingAddress2" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ShippingCity" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ShippingState" Type="String" MaxLength="2" FixedLength="false" Unicode="true" />
+          <Property Name="ShippingZipCode" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="BillingAddress1" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="BillingAddress2" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="BillingCity" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="BillingState" Type="String" MaxLength="2" FixedLength="false" Unicode="true" />
+          <Property Name="BillingZipCode" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="BillinggState" Type="String" MaxLength="2" FixedLength="false" Unicode="true" />
+          <Property Name="CreditCardNumber" Type="String" MaxLength="16" FixedLength="false" Unicode="true" />
+          <Property Name="CreditCardExpiration" Type="DateTime" Precision="3" />
+          <Property Name="CVV" Type="Int32" Nullable="false" />
+          <Property Name="Items" Type="Int32" />
+          <Property Name="TOTAL" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="ShippingCost" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="TAX" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="SubTotal" Type="Int32" Nullable="false" />
+          <Property Name="GrandTotal" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <NavigationProperty Name="Products" Relationship="ArmCandyModel.CartProduct" FromRole="CART" ToRole="Product" />
+        </EntityType>
+        <Association Name="CartProduct">
+          <End Type="ArmCandyModel.CART" Role="CART" Multiplicity="*" />
+          <End Type="ArmCandyModel.Product" Role="Product" Multiplicity="*" />
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ArmCandyModelStoreContainer" CdmEntityContainer="ArmCandyEntities">
+          <EntitySetMapping Name="Products">
+            <EntityTypeMapping TypeName="ArmCandyModel.Product">
+              <MappingFragment StoreEntitySet="Product">
+                <ScalarProperty Name="Inventory" ColumnName="Inventory" />
+                <ScalarProperty Name="ProductName" ColumnName="ProductName" />
+                <ScalarProperty Name="ProductDescription" ColumnName="ProductDescription" />
+                <ScalarProperty Name="ProductPrice" ColumnName="ProductPrice" />
+                <ScalarProperty Name="ProductType" ColumnName="ProductType" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProductImages">
+            <EntityTypeMapping TypeName="ArmCandyModel.ProductImage">
+              <MappingFragment StoreEntitySet="ProductImage">
+                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+                <ScalarProperty Name="AltText" ColumnName="AltText" />
+                <ScalarProperty Name="ImageFileName" ColumnName="ImageFileName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CARTs">
+            <EntityTypeMapping TypeName="ArmCandyModel.CART">
+              <MappingFragment StoreEntitySet="CART">
+                <ScalarProperty Name="GrandTotal" ColumnName="GrandTotal" />
+                <ScalarProperty Name="SubTotal" ColumnName="SubTotal" />
+                <ScalarProperty Name="TAX" ColumnName="TAX" />
+                <ScalarProperty Name="ShippingCost" ColumnName="ShippingCost" />
+                <ScalarProperty Name="TOTAL" ColumnName="TOTAL" />
+                <ScalarProperty Name="Items" ColumnName="Items" />
+                <ScalarProperty Name="CVV" ColumnName="CVV" />
+                <ScalarProperty Name="CreditCardExpiration" ColumnName="CreditCardExpiration" />
+                <ScalarProperty Name="CreditCardNumber" ColumnName="CreditCardNumber" />
+                <ScalarProperty Name="BillinggState" ColumnName="BillinggState" />
+                <ScalarProperty Name="BillingZipCode" ColumnName="BillingZipCode" />
+                <ScalarProperty Name="BillingState" ColumnName="BillingState" />
+                <ScalarProperty Name="BillingCity" ColumnName="BillingCity" />
+                <ScalarProperty Name="BillingAddress2" ColumnName="BillingAddress2" />
+                <ScalarProperty Name="BillingAddress1" ColumnName="BillingAddress1" />
+                <ScalarProperty Name="ShippingZipCode" ColumnName="ShippingZipCode" />
+                <ScalarProperty Name="ShippingState" ColumnName="ShippingState" />
+                <ScalarProperty Name="ShippingCity" ColumnName="ShippingCity" />
+                <ScalarProperty Name="ShippingAddress2" ColumnName="ShippingAddress2" />
+                <ScalarProperty Name="ShippingAddress1" ColumnName="ShippingAddress1" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="EmailAddress" ColumnName="EmailAddress" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="OrderId" ColumnName="OrderId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="CartProduct" TypeName="ArmCandyModel.CartProduct" StoreEntitySet="CartProduct">
+            <EndProperty Name="Product">
+              <ScalarProperty Name="ID" ColumnName="ProductId" />
+            </EndProperty>
+            <EndProperty Name="CART">
+              <ScalarProperty Name="OrderId" ColumnName="OrderId" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
