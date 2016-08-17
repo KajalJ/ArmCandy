@@ -5,3 +5,5 @@ I built this ecommcerce store using ASP.Net MVC5, Bootstrap, Entity Framework, S
 
 
 ![home page](/screenshot1.jpg)
+![home page](/ArmCandy2.jpg)
+![home page]/ArmCandy3.jpg
