@@ -3,6 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css?family=Signika" rel="stylesheet">
     <title>@ViewBag.Title - ArmCandy</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
@@ -10,11 +11,10 @@
 <body>
     <header>
         <div class="row">
-            <div class="col-md-2"> <img src="~/Images/logo.jpg" /> </div>
+            <div class="col-md-3"> <img src="~/Images/logo.jpg" /> </div>
             <div class="col-md-6" id="AC"> @Html.ActionLink("ARM CANDY", "index","Home") </div>
-            <div class="col-md-2"> @Html.ActionLink("Log In", "Index", "Login")</div>
-            <div class="col-md-1"> <img src="~/Images/shoppingcart.png" class="shoppingcartimg" /> </div>
-            <div class="col-md-1"> <img src="~/Images/heart.png" class="heartimg" /> </div>
+            <div class="col-md-1"> @Html.ActionLink("Log In", "Index", "Login")</div>
+            <div class="col-md-2"> <img src="~/Images/shoppingcart.png" class="shoppingcartimg" /> </div>
         </div>
         <div class="row">
             <div class="nav navbar-nav navcolor">
